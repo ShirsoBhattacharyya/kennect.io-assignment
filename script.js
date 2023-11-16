@@ -56,7 +56,7 @@ function calculatePrimes() {
   document.getElementById("avg-time-per-number").textContent =
     avgTimePerNumber.toFixed(4) + " ms";
 
-  // Storing primes and results in a global variable accessible to the "Details" button. 
+  // Storing primes and results in a global variable accessible to the "Details" button.
   // PS: I could have used sessionStorage or localStorage as well but felt like using this.
   window.calculatedResults = results;
   window.calculatedPrimes = primes;
@@ -68,11 +68,14 @@ function createTablesForDetails() {
   const from = parseInt(document.getElementById("from").value);
   const to = parseInt(document.getElementById("to").value);
   // Creating tables for details
-  const detailsTable2b = createTable(["Number", "Result", "Time(in ms)"]);
+  const detailsTable2b = createTable(
+    ["Number", "Result", "Time(in ms)"],
+    "Table 2B"
+  );
   detailsTable2b.id = "details-table-2b";
   document.getElementById("details-popup").appendChild(detailsTable2b);
 
-  const detailsTable2c = createTable(["Number", "Time(in ms)"]);
+  const detailsTable2c = createTable(["Number", "Time(in ms)"], "Table 2C");
   detailsTable2c.id = "details-table-2c";
   document.getElementById("details-popup").appendChild(detailsTable2c);
 
@@ -110,17 +113,18 @@ function createTablesForDetails() {
   document.getElementById("details-popup").style.display = "block";
 }
 
-function createTable(title) {
+function createTable(arr, title) {
   const table = document.createElement("table");
+  const titleElem = document.createElement("h2");
+  titleElem.textContent = title;
   const thead = document.createElement("thead");
   const headerRow = document.createElement("tr");
-  for (let item = 0; item < title.length; item++) {
+  for (let item = 0; item < arr.length; item++) {
     const th = document.createElement("th");
-    th.textContent = title[item];
+    th.textContent = arr[item];
     headerRow.appendChild(th);
   }
-  thead.appendChild(headerRow);
-  table.appendChild(thead);
+  table.append(titleElem, headerRow, thead);
 
   return table;
 }
